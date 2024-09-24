@@ -45,8 +45,8 @@ jobs:
           
       - name: Deploy WAR to EC2
         run: |
-          ssh -i ~/ec2.pem -o UserKnownHostsFile=~/.ssh/known_hosts -tt ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "sudo rm -f /opt/tomcat/apache-tomcat-9.0.95/webapps/ROOT.war"  # 기존 파일 삭제
-          ssh -i ~/ec2.pem -o UserKnownHostsFile=~/.ssh/known_hosts -tt ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "sudo rmdir -f /opt/tomcat/apache-tomcat-9.0.95/webapps/ROOT"  # 기존 파일 삭제
+          ssh -i ~/ec2.pem -o UserKnownHostsFile=~/.ssh/known_hosts -tt ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "sudo rm -rf /opt/tomcat/apache-tomcat-9.0.95/webapps/ROOT.war"  # 기존 파일 삭제
+          ssh -i ~/ec2.pem -o UserKnownHostsFile=~/.ssh/known_hosts -tt ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "sudo rm -rf /opt/tomcat/apache-tomcat-9.0.95/webapps/ROOT"  # 기존 파일 삭제
           scp -o StrictHostKeyChecking=no target/ROOT.war ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }}:/opt/tomcat/apache-tomcat-9.0.95/webapps/
         env:
           SSH_PEM_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
